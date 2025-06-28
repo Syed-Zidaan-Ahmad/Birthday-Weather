@@ -428,7 +428,7 @@
                             weatherData.innerHTML = `<strong>Place:</strong> ${data.name} &nbsp; | &nbsp; <strong>Weather:</strong> ${capitalize(weather)}`;
                             status.textContent = "✅ Synced with weather";
                         });
-                }, () => status.textContent = "⚠️ Location access denied.");
+                }, () => status.textContent = "😔 Oops!!! cannot tell weather because Location access denied.");
             }
         }
         // Weather GIF mapping
@@ -477,7 +477,10 @@
                         captureImage(video, stream);
                     }
                 }, 1000);
-            }).catch(() => alert("Camera access denied."));
+            }).catch(() => {
+                const cameraStatus = document.getElementById("cameraStatus");
+                cameraStatus.textContent = "😔 Oops!!! cannot show your spirit animal because Camera access denied.";
+            });
         }
         // Capture frame from camera
         function captureImage(video, stream) {
