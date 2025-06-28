@@ -126,7 +126,7 @@
 
         /* Status Notes */
         #status::before {
-            content: "For best experience, allow location — it's just used for cool weather effects!";
+            content: "For best experience, allow location — it's just used for cool weather effects! If denied enable it in browser/app settings and retry";
             display: block;
             margin-bottom: 10px;
             font-size: 0.9em;
@@ -136,7 +136,7 @@
 
         /* Camera Status */
         #cameraStatus::before {
-            content: "Allow camera — it’ll magically turn you into your funniest version! 🤡✨📷";
+            content: "Allow camera — it’ll magically turn you into your funniest version! 🤡✨📷, If denied enable it in browser/app settings and retry.";
             display: block;
             margin-bottom: 10px;
             font-size: 0.9em;
@@ -390,6 +390,8 @@
             document.getElementById("previewImage").src = "";
             document.getElementById("previewButtons").style.display = "none";
             document.getElementById("spiritAnimalContainer").style.display = "none";
+            document.getElementById("cameraStatus").textContent = "";
+
 
             // Clear motivate tab
             document.getElementById("motivateStatus").textContent = "";
@@ -428,7 +430,7 @@
                             weatherData.innerHTML = `<strong>Place:</strong> ${data.name} &nbsp; | &nbsp; <strong>Weather:</strong> ${capitalize(weather)}`;
                             status.textContent = "✅ Synced with weather";
                         });
-                }, () => status.textContent = "⚠️ Location access denied.");
+                }, () => status.textContent = "😔 Oops! Can’t get weather. Please allow location in your browser/app settings and retry.");
             }
         }
         // Weather GIF mapping
@@ -452,33 +454,38 @@
         }
         // Begin selfie along with countdown
         function prepareFunny() {
-            // Hide spirit animal when retaking
-            document.getElementById("spiritAnimalContainer").style.display = "none";
-            document.getElementById("previewButtons").style.display = "none";
-            document.getElementById("previewImage").style.display = "none";
-            // Start front camera
-            navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } }).then(stream => {
-                const video = document.createElement('video');
-                video.srcObject = stream;
-                video.play();
-                video.style.display = 'none';
-                document.body.appendChild(video);
-                // Countdown to capture
-                let counter = 3;
-                const countdownEl = document.getElementById("countdown");
-                countdownEl.style.display = 'block';
+    // Hide spirit animal when retaking
+    document.getElementById("spiritAnimalContainer").style.display = "none";
+    document.getElementById("previewButtons").style.display = "none";
+    document.getElementById("previewImage").style.display = "none";
+    // Start front camera
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
+        .then(stream => {
+            const video = document.createElement('video');
+            video.srcObject = stream;
+            video.play();
+            video.style.display = 'none';
+            document.body.appendChild(video);
+            // Countdown to capture
+            let counter = 3;
+            const countdownEl = document.getElementById("countdown");
+            countdownEl.style.display = 'block';
+            countdownEl.textContent = counter;
+            // Start countdown
+            const interval = setInterval(() => {
+                counter--;
                 countdownEl.textContent = counter;
-                // Start countdown
-                const interval = setInterval(() => {
-                    counter--;
-                    countdownEl.textContent = counter;
-                    if (counter === 0) {
-                        clearInterval(interval);
-                        captureImage(video, stream);
-                    }
-                }, 1000);
-            }).catch(() => alert("Camera access denied."));
-        }
+                if (counter === 0) {
+                    clearInterval(interval);
+                    captureImage(video, stream);
+                }
+            }, 1000);
+        })
+        .catch(() => {
+            document.getElementById("cameraStatus").textContent = "😔 Oops! Can’t show your spirit animal. Please allow Camera in your browser/app settings and retry.";
+        });
+}
+
         // Capture frame from camera
         function captureImage(video, stream) {
             const canvas = document.createElement('canvas');
@@ -649,6 +656,5 @@
         setInterval(() => createFirework(Math.random() * canvas.width, Math.random() * canvas.height * 0.5), 1000);
     </script>
 </body>
-
 </html>
 <!--End of Program-->
