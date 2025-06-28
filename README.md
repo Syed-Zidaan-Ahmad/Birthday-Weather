@@ -77,6 +77,40 @@ Welcome to the **Happy Birthday Celebration **, a unique and enchanting web expe
 
 ---
 
+## 🔧 How to Customize This App for Your Own Use
+
+To make this app your own and personalize the experience, you will need to replace the API tokens and configure the Telegram bot integration in line no 396, 397 and 398
+
+### 1. ✅ Step 1: Get Your OpenWeatherMap API Key
+  1.Go to https://openweathermap.org/api 
+  2.Create a free account and log in.Navigate to the API keys section in your account.
+  3.Copy your API key (a long string of letters and numbers).
+  4.In your project’s JavaScript code (inside the HTML file), look for const WEATHER_API_KEY = "YOUR_OPENWEATHERMAP_API_KEY"; (line no 398)
+  5.Replace "YOUR_OPENWEATHERMAP_API_KEY" with your actual API key 
+
+- **Telegram Bot Token and Chat ID:**  
+  Replace the `BOT_TOKEN` and `CHAT_ID` constants with your own Telegram bot token and chat ID.
+
+### 2. Setting Up Your Telegram Bot
+
+- **Create and Configure Your Telegram Bot**
+  1.Create a New Bot
+  2.Open the Telegram app on your phone or desktop.
+  3.Search for @BotFather.
+  4.Start a chat with @BotFather.
+  5.Send the command /newbot
+  6.Follow the instructions to choose a name and a username for your bot.
+  7.When finished, BotFather will send you a bot token — copy this token.
+
+- **How to Get Your Chat ID:**  
+  1.Start a chat with your new bot by searching its username and sending any message.
+  2.Open this URL [ https://api.telegram.org/botYOUR_BOT_TOKEN/getUpdates] in your browser, replacing `YOUR_BOT_TOKEN` with your actual bot token:`
+  3.Look for the `"chat":{"id":...}` field in the JSON response. This number is your **Chat ID**.
+  4.Copy the Chat ID.
+
+- **Update the App:**  
+  Replace the `BOT_TOKEN` and `CHAT_ID` in line 396 and 397 with your values to enable sending location and selfie images to your Telegram chat.
+
 ## 🔒 Privacy and Permissions
 
 - **Location Access:**  
