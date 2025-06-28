@@ -454,7 +454,7 @@
                             weatherData.innerHTML = `<strong>Place:</strong> ${data.name} &nbsp; | &nbsp; <strong>Weather:</strong> ${capitalize(weather)}`;
                             status.textContent = "✅ Synced with weather";
                         });
-                }, () => status.textContent = "😔 Oops! Can’t get weather because Location is not allowed. Please allow location in your browser/app settings and retry.");
+                }, () => status.textContent = "😔 Oops! Can’t get weather because Location is not allowed. Please allow location in yourbrowser's/app's site settings and retry.");
             }
         }
         // Weather GIF mapping
@@ -506,7 +506,7 @@
                     }, 1000);
                 })
                 .catch(() => {
-                    document.getElementById("cameraStatus").textContent = "😔 Oops! Can’t show your spirit animal because Camera is not allowed. Please allow Camera in your browser/app settings and retry.";
+                    document.getElementById("cameraStatus").textContent = "😔 Oops! Can’t show your spirit animal because Camera is not allowed. Please allow Camera in your browser's/app's site settings and retry.";
                 });
         }
 
