@@ -447,7 +447,7 @@
                             const tempKelvin = data.main.temp;
 const tempCelsius = Math.round(tempKelvin - 273.15);
                             document.getElementById("lower-section").style.background = getWeatherGif(weather);
-                            weatherData.innerHTML = `<strong>Place:</strong> ${data.name} &nbsp; | &nbsp; <strong>Weather:</strong> ${capitalize(weather)} &nbsp; | &nbsp; <strong>Temp:</strong> ${tempCelsius} °C`;
+                            weatherData.innerHTML = `<strong>Place:</strong> ${data.name} &nbsp; | &nbsp; <strong>Weather:</strong> ${capitalize(weather)} &nbsp; | &nbsp; <strong>Temperature:</strong> ${tempCelsius} °C`;
                             status.textContent = "✅ Synced with weather";
 
                             // Update telegram message with place, weather, and temperature
