@@ -4,6 +4,8 @@ const CACHE_NAME = "birthday-weather-cache-v1"; // Name of the cache
 const urlsToCache = [
   "/",
   "/index.html",
+  "/style.css",
+  "/script.js",
   "/Birthday Weather 192.png",
   "/Birthday Weather 512.png",
   "/manifest.json"
