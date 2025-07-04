@@ -1,0 +1,425 @@
+/*Birthday Wisher (CSS Part)*/
+/* Program by Zidaan */
+/* Basic Reset and Font */
+        * {
+            box-sizing: border-box;
+        }
+        /* Global Styles */
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+            overflow-x: hidden;
+            text-align: center;
+            background: radial-gradient(#000000, #1a1a1a);
+        }
+        /* Main Heading and Subtext */
+        h1 {
+            font-size: 3em;
+            margin-top: 12vh;
+            animation: colorShift 5s infinite alternate;
+            z-index: 2;
+            position: relative;
+        }
+        /* Birthday Subtext */
+        .birthday-subtext {
+            margin-top: 1em;
+            font-size: 1.3em;
+            color: #ffb6c1;
+            font-style: italic;
+            animation: glowText 2s infinite alternate;
+        }
+        /* Animation Keyframes */
+        /* Color Shift Animation */
+        @keyframes colorShift {
+            0% {
+                color: #ff6ec7;
+                text-shadow: 0 0 10px #ff6ec7;
+            }
+
+            25% {
+                color: #ffb347;
+                text-shadow: 0 0 10px #ffb347;
+            }
+
+            50% {
+                color: #00FFFF;
+                text-shadow: 0 0 10px #00FFFF;
+            }
+
+            75% {
+                color: #7CFC00;
+                text-shadow: 0 0 10px #7CFC00;
+            }
+
+            100% {
+                color: #ff1493;
+                text-shadow: 0 0 10px #ff1493;
+            }
+        }
+        /* Glow Animation */
+        @keyframes glowText {
+            from {
+                opacity: 0.7;
+                text-shadow: 0 0 10px #ff6ec7;
+            }
+
+            to {
+                opacity: 1;
+                text-shadow: 0 0 20px #ffffff;
+            }
+        }
+        /* Button Color Pulse Animation */
+        @keyframes buttonColorPulse {
+            0% {
+                background: linear-gradient(45deg, #ff007f, #ff00ff);
+            }
+
+            25% {
+                background: linear-gradient(45deg, #00ffff, #ffcc00);
+            }
+
+            50% {
+                background: linear-gradient(45deg, #ff4500, #00ff7f);
+            }
+
+            75% {
+                background: linear-gradient(45deg, #ff1493, #00bfff);
+            }
+
+            100% {
+                background: linear-gradient(45deg, #00ffcc, #ff69b4);
+            }
+        }
+        /* Section Layout */
+        /* Upper Section */
+        #upper-section {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        /* Lower Section */
+        #lower-section {
+            min-height: 40vh;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+            background: radial-gradient(#000000, #1a1a1a);
+            overflow-y: auto;
+        }
+        /* Status Notes */
+        #status::before {
+            content: "For best experience, allow location — it's just used for cool weather effects! If denied enable it in browser's/app's site settings and retry";
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+            color: #0ef;
+            font-style: italic;
+        }
+        /* Camera Status */
+        #cameraStatus::before {
+            content: "Allow camera — it’ll magically turn you into your funniest version! 🤡✨📷, If denied enable it in browser's/app's site settings and retry.";
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+            color: #0ef;
+            font-style: italic;
+        }
+        /* Motivate Status */
+        #motivateStatus::before {
+            content: "Feeling low? I gotchu 🫂, keep clicking till you feel better !!!";
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+            color: #0ef;
+            font-style: italic;
+        }
+        /* Status */
+        #status {
+            margin-top: 15px;
+            font-size: 1.1em;
+            color: #ffffff;
+        }
+        /* Weather */
+        #weatherData {
+            margin-top: 12px;
+            font-size: 1.1em;
+            color: #aee;
+        }
+        /* Tabs and Buttons */
+        /* Tabs */
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+            gap: 12px;
+        }
+        /* Tab Buttons */
+        .tab-btn {
+            background: #222;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: 0.3s;
+        }
+        /* Active Tab Button */
+        .tab-btn.active {
+            background: #ff1493;
+            border-color: #ff1493;
+            box-shadow: 0 0 10px #ff6ec7;
+        }
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+        /* Active Tab Content */
+        .tab-content.active {
+            display: block;
+            animation: glowText 1s ease-in-out;
+        }
+        /* Action Button */
+        .action-button {
+            animation: buttonColorPulse 5s infinite alternate;
+            padding: 14px 28px;
+            font-size: 1.1em;
+            border: none;
+            color: black;
+            background: linear-gradient(to right, #ff6ec7, #ff1493);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        /* Action Button Hover Effect */
+        .action-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #ff6ec7;
+        }
+        /* Fireworks Canvas */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+        /* Countdown and Preview Controls */
+        #countdown {
+            font-size: 2.5em;
+            margin-top: 10px;
+            color: #0ef;
+        }
+        /* Preview Image and Buttons */
+        /* Hide by default*/
+        #previewImage {
+            display: none;
+        }
+        /* Preview Image */
+        #previewButtons {
+            display: none;
+            margin-top: 10px;
+        }
+        /* Preview Buttons */
+        #previewButtons button {
+            margin: 5px;
+            padding: 8px 16px;
+            font-size: 1em;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+        /* View Button */
+        .view-btn {
+            background-color: #00c851;
+            color: white;
+        }
+        /* Retake Button */
+        .retake-btn {
+            background-color: #ff4444;
+            color: white;
+        }
+        /* Spirit Animal Styles */
+        /* Spirit Animal Container */
+        #spiritAnimalContainer {
+            margin-top: 30px;
+            animation: glowText 2s infinite alternate;
+            display: none;
+        }
+        /* Spirit Animal Heading */
+        #spiritHeading {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #ff6ec7;
+            text-shadow: 0 0 10px #ff6ec7;
+        }
+        /* Glow Frame */
+        .glow-frame {
+            display: inline-block;
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px #ff6ec7, 0 0 60px #ff1493;
+            animation: pulseGlow 2s infinite alternate;
+        }
+        /* Glow Frame Image */
+        .glow-frame img {
+            width: 300px;
+            height: auto;
+            border-radius: 15px;
+        }
+        /* Pulse Glow Animation */
+        @keyframes pulseGlow {
+            from {
+                box-shadow: 0 0 20px #ff6ec7, 0 0 40px #ff1493;
+            }
+
+            to {
+                box-shadow: 0 0 40px #ff1493, 0 0 80px #ff6ec7;
+            }
+        }
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            /* Heading */
+            h1 {
+                font-size: 2em;
+            }
+            /* Birthday Subtext */
+            .birthday-subtext {
+                font-size: 1em;
+            }
+            /* Action Button and Tab Button */
+            .action-button,
+            .tab-btn {
+                font-size: 1em;
+                padding: 10px 18px;
+            }
+        }
+        /*Scroll bar Designing for Traffic Light Mode*/
+        /*Scroll bar width modifier*/
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        /* Scroll bar track Designing */
+        ::-webkit-scrollbar-track {
+            background: black;
+        }
+        /* Scroll bar scroller thumb */
+        ::-webkit-scrollbar-thumb {
+            background: #ff004f;
+            border-radius: 50%;
+        }
+        /* Scroll bar scroller thumb hover effect*/
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgb(5, 227, 5);
+            box-shadow: 0 0 5px rgb(5, 227, 5), 0 0 25px rgb(5, 227, 5), 0 0 50px rgb(5, 227, 5), 0 0 100px rgb(5, 227, 5),
+                0 0 200px rgb(5, 227, 5);
+        }
+        /* Info button in the top right corner */
+        .info-btn {
+            position: fixed;
+            /* fix to top corner */
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            background: #0ef;
+            /* changed to cyan */
+            backdrop-filter: blur(4px);
+            border: none;
+            border-radius: 50%;
+            /* round circle */
+            width: 45px;
+            height: 45px;
+            color: black;
+            font-size: 1.3em;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 10px #0ef;
+        }
+        .info-btn:hover {
+            box-shadow: 0 0 20px #0ef;
+            /* glow on hover */
+        }
+        /* Modal container for install instructions */
+        .info-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 0 20px #0ef;
+            max-width: 320px;
+            max-height: 80vh;
+            overflow-y: auto;
+            display: none;
+            z-index: 10000;
+            text-align: left;
+            opacity: 0;
+            transition: 0.3s ease;
+        }
+        /* Modal heading style */
+        .info-modal h3 {
+            color: #ffb6c1;
+            text-align: center;
+        }
+        /* Phone heading highlighted */
+        .phone-heading {
+            color: #0ef;
+        }
+        /* Desktop heading highlighted */
+        .desktop-heading {
+            color: #0ef;
+        }
+        /* Close button inside modal */
+        .close-btn {
+            background: #ff1493;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #ff6ec7;
+            transition: 0.3s;
+        }
+        /* Close button hover effect */
+        .close-btn:hover {
+            box-shadow: 0 0 20px #ff6ec7;
+        }
+        /* Modal-specific scrollbar with traffic light style */
+        /* Only inside modal: slim scrollbar */
+        .info-modal::-webkit-scrollbar {
+            width: 8px;
+        }
+        /* Track stays black, as usual */
+        .info-modal::-webkit-scrollbar-track {
+            background: black;
+        }
+        /* Thumb with traffic-light red, smaller look */
+        .info-modal::-webkit-scrollbar-thumb {
+            background: #ff004f;
+            border-radius: 100%;
+            min-height: 30px;
+        }
+        /* Hover glow same as before (traffic-light) */
+        .info-modal::-webkit-scrollbar-thumb:hover {
+            background: rgb(5, 227, 5);
+            box-shadow: 0 0 5px rgb(5, 227, 5),
+                0 0 25px rgb(5, 227, 5),
+                0 0 50px rgb(5, 227, 5),
+                0 0 100px rgb(5, 227, 5),
+                0 0 200px rgb(5, 227, 5);
+        }
+/* End of Program */

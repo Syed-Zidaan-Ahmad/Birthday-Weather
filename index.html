@@ -1,0 +1,92 @@
+<!-- Birthday Wisher (HTML Part) -->
+<!-- A Progressive Web App which wishes you Happy Birthday along with Firework effects and Real time Weather data and it can also turn you into your Spirit Animal and can also Motivate you -->
+<!-- Program by Zidaan -->
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head of the webpage -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday To You</title>
+  <link rel="manifest" href="manifest.json" /> <!-- Manifest for Progressive Web App -->
+  <link rel="stylesheet" href="style.css" /> <!-- Linking external CSS Stylesheet -->
+</head>
+<!-- Body of the webpage (Begins) -->
+<body>
+  <!-- Full-screen canvas for fireworks background -->
+  <canvas id="canvas"></canvas>
+  <!-- Birthday greeting header -->
+  <div id="upper-section">
+    <h1>Happy Birthday 🎉</h1>
+    <p class="birthday-subtext">May your day be filled with sparkle ✨ and joy 🎈</p>
+    <p class="birthday-subtext">May your smile shine brighter than all the flares in the sky 🌌</p>
+  </div>
+  <!-- Tabbed content container -->
+  <div id="lower-section">
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="switchTab('weatherTab')">☁️ Weather</button>
+      <button class="tab-btn" onclick="switchTab('funnyTab')">😜 Funny</button>
+      <button class="tab-btn" onclick="switchTab('motivateTab')">😔 Feeling Low</button>
+    </div>
+    <!-- Weather tab content -->
+    <div id="weatherTab" class="tab-content active">
+      <button class="action-button" onclick="syncWeather()">Sync background with weather ☂️</button>
+      <p id="status"></p>
+      <div id="weatherData"></div>
+    </div>
+    <!-- Funny tab content -->
+    <div id="funnyTab" class="tab-content">
+      <button class="action-button" onclick="prepareFunny()">Show my spirit animal 🐾</button>
+      <p id="cameraStatus"></p>
+      <div id="countdown"></div>
+      <img id="previewImage" />
+      <div id="previewButtons">
+        <button class="retake-btn" onclick="prepareFunny()">Retake</button>
+        <button class="view-btn" onclick="viewPhoto()">View</button>
+      </div>
+      <!-- Spirit animal display -->
+      <div id="spiritAnimalContainer">
+        <h2 id="spiritHeading">Your spirit animal is</h2>
+        <div class="glow-frame">
+          <img id="spiritImage" src="" alt="Spirit Animal"/>
+        </div>
+      </div>
+    </div>
+    <!-- Motivate tab content -->
+    <div id="motivateTab" class="tab-content">
+      <button class="action-button" onclick="motivateMe()">Motivate Me 💪</button>
+      <p id="motivateStatus"></p>
+    </div>
+  </div>
+  <!-- Info button in top right -->
+  <button id="infoButton" class="info-btn">i</button>
+  <!-- Modal that pops up with install instructions -->
+  <div id="infoModal" class="info-modal">
+    <h3>📲 How to Install it on your Device</h3>
+    <!-- Phone instructions -->
+    <p>
+      <strong class="phone-heading">For Phone:</strong><br>
+      1. Tap the ⋮ (three dots) on your browser<br>
+      2. Tap “Add to Home screen”<br>
+      3. Confirm to install
+    </p>
+    <!-- Desktop instructions -->
+    <p>
+      <strong class="desktop-heading">For Desktop:</strong><br>
+      1. Click the install icon in the address bar if visible (usually looks like a monitor with a down arrow)<br>
+      OR<br>
+      1. Click on the ⋮ (three dots) in the top right<br>
+      2. Scroll down carefully<br>
+      3. Click on (Cast/Save/Share) option and click “Install Birthday Weather”
+    </p>
+    <!-- Close button -->
+    <div style="text-align:center;">
+      <button onclick="closeInfoModal()" class="close-btn">Close</button>
+    </div>
+  </div>
+  <!-- Linking external JavaScript code -->
+  <script src="script.js"></script>
+</body>
+<!-- Body of the webpage (Ends) -->
+</html>
+<!-- End of Program -->
